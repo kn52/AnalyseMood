@@ -37,7 +37,7 @@ public class MoodAnalyzerTest {
             mood = analyzer.moodAnalyse();
         } catch (MoodAnalyzerException e) {
             System.out.println(e.getMessage());
-            Assert.assertEquals("NULL_STRING", e.getMessage());
+            Assert.assertEquals(MoodAnalyzerException.ExceptionType.NULL_STRING, e.type);
         }
 
     }
@@ -49,7 +49,7 @@ public class MoodAnalyzerTest {
             mood = analyzer.moodAnalyse();
         } catch (MoodAnalyzerException e) {
             System.out.println(e.getMessage());
-            Assert.assertEquals("EMPTY_STRING", e.getMessage());
+            Assert.assertEquals(MoodAnalyzerException.ExceptionType.EMPTY_STRING, e.type);
         }
     }
 
