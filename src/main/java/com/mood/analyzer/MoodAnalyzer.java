@@ -1,7 +1,5 @@
 package com.mood.analyzer;
-
 import com.mood.exception.MoodAnalyzerException;
-
 public class MoodAnalyzer {
     private String message;
 
@@ -17,7 +15,7 @@ public class MoodAnalyzer {
         {
             if (message.isEmpty())
             {
-                throw new MoodAnalyzerException("Empty Mood");
+                throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.EMPTY_STRING,"EMPTY_STRING");
             }
             if(message.contains("sad"))
                 return "SAD";
@@ -25,7 +23,7 @@ public class MoodAnalyzer {
         }
         catch(NullPointerException npe)
         {
-            throw new MoodAnalyzerException("Not Proper Mood");
+            throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.NULL_STRING,"NULL_STRING");
         }
     }
 }

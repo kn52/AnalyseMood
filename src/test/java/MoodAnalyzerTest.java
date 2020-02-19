@@ -37,7 +37,7 @@ public class MoodAnalyzerTest {
             mood = analyzer.moodAnalyse();
         } catch (MoodAnalyzerException e) {
             System.out.println(e.getMessage());
-            Assert.assertEquals("Not Proper Mood", e.getMessage());
+            Assert.assertEquals("NULL_STRING", e.getMessage());
         }
 
     }
@@ -47,10 +47,9 @@ public class MoodAnalyzerTest {
         try {
             MoodAnalyzer analyzer = new MoodAnalyzer("");
             mood = analyzer.moodAnalyse();
-            Assert.assertEquals("HAPPY", mood);
         } catch (MoodAnalyzerException e) {
             System.out.println(e.getMessage());
-            Assert.assertEquals("Empty Mood", e.getMessage());
+            Assert.assertEquals("EMPTY_STRING", e.getMessage());
         }
     }
 
