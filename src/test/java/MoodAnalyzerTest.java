@@ -151,7 +151,7 @@ public class MoodAnalyzerTest {
         Object moodMethod=null;
         try{
             Class<?> className=MoodAnalyzerFactory.getClass("com.mood.analyzer.MoodAnalyzer");
-            Constructor<?> classConstructor=MoodAnalyzerFactory.getParametizedConstructor(className, String.class);
+            Constructor<?> classConstructor=MoodAnalyzerFactory.getParametizedConstructor(className, Integer.class);
             Object moodObject=MoodAnalyzerFactory.getObject(classConstructor,"I am in happy mood");
             moodMethod=MoodAnalyzerFactory.invokeMethod(moodObject,"Analyse");
         }catch(MoodAnalyzerException ex)
@@ -160,6 +160,42 @@ public class MoodAnalyzerTest {
         }
     }
 
+    @Test
+    public void givenFieldName_WhenProper_ShouldReturn_FieldObject() {
+        Object fieldObject=null;
+        try{
+            Class<?> className=MoodAnalyzerFactory.getClass("com.mood.analyzer.MoodAnalyzer");
+            Constructor<?> constructor=MoodAnalyzerFactory.getDefaultConstructor(className);
+            fieldObject=MoodAnalyzerFactory.getField(constructor,"moodAnalyse","I am in sad mood","message");
+            Assert.assertEquals("SAD",fieldObject);
+        }catch(MoodAnalyzerException ex){
+            ex.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenFieldName_WhenNotProper_ShouldReturn_NO_SUCH_FIELD() {
+        Object fieldObject=null;
+        try{
+            Class<?> className=MoodAnalyzerFactory.getClass("com.mood.analyzer.MoodAnalyzer");
+            Constructor<?> constructor=MoodAnalyzerFactory.getDefaultConstructor(className);
+            fieldObject=MoodAnalyzerFactory.getField(constructor,"moodAnalyse","I am in happy mood","mesage");
+        }catch(MoodAnalyzerException ex){
+            Assert.assertEquals(MoodAnalyzerException.ExceptionType.NO_SUCH_FIELD,ex.type);
+        }
+    }
+
+    @Test
+    public void givenFieldName_WithNullMessage_WhenNotProper_ShouldReturn_NO_SUCH_FIELD() {
+        Object fieldObject=null;
+        try{
+            Class<?> className=MoodAnalyzerFactory.getClass("com.mood.analyzer.MoodAnalyzer");
+            Constructor<?> constructor=MoodAnalyzerFactory.getDefaultConstructor(className);
+            fieldObject=MoodAnalyzerFactory.getField(constructor,"moodAnalyse",null,"message");
+        }catch(MoodAnalyzerException ex){
+            Assert.assertEquals(MoodAnalyzerException.ExceptionType.OBJECT_CREATION_ISSUE,ex.type);
+        }
+    }
 }
 
 
