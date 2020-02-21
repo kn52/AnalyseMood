@@ -69,4 +69,17 @@ public class MoodAnalyzerFactory {
         }
     }
 
+    public static Object invokeMethod(Object moodObject, String message) {
+        try {
+            return moodObject.getClass().getMethod(message).invoke(moodObject);
+        } catch (IllegalAccessException e) {
+            throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.NO_ACCESS,"NO_ACCESS");
+        } catch (InvocationTargetException e) {
+            throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.OBJECT_CREATION_ISSUE,"OBJECT_CREATION_ISSUE");
+        } catch (NoSuchMethodException e) {
+            throw new MoodAnalyzerException(MoodAnalyzerException.ExceptionType.NO_SUCH_METHOD,"NO_SUCH_METHOD");
+        }
+    }
+
+
 }

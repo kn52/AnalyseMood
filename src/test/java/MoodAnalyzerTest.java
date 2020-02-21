@@ -133,7 +133,32 @@ public class MoodAnalyzerTest {
         }
     }
 
-
+    @Test
+    public void givenClassMethod_WhenProper_ShouldReturnMethod_Object() {
+        Object moodMethod=null;
+        try{
+            Class<?> className=MoodAnalyzerFactory.getClass("com.mood.analyzer.MoodAnalyzer");
+            Constructor<?> classConstructor=MoodAnalyzerFactory.getParametizedConstructor(className, String.class);
+            Object moodObject=MoodAnalyzerFactory.getObject(classConstructor,"I am in happy mood");
+            moodMethod=MoodAnalyzerFactory.invokeMethod(moodObject,"moodAnalyse");
+        }catch(MoodAnalyzerException ex)
+        {
+            Assert.assertEquals("HAPPY",moodMethod);
+        }
+    }
+    @Test
+    public void givenClassMethod_WhenNotProper_ShouldReturnMethod_NO_SUCH_METHOD() {
+        Object moodMethod=null;
+        try{
+            Class<?> className=MoodAnalyzerFactory.getClass("com.mood.analyzer.MoodAnalyzer");
+            Constructor<?> classConstructor=MoodAnalyzerFactory.getParametizedConstructor(className, String.class);
+            Object moodObject=MoodAnalyzerFactory.getObject(classConstructor,"I am in happy mood");
+            moodMethod=MoodAnalyzerFactory.invokeMethod(moodObject,"Analyse");
+        }catch(MoodAnalyzerException ex)
+        {
+            Assert.assertEquals(MoodAnalyzerException.ExceptionType.NO_SUCH_METHOD,ex.type);
+        }
+    }
 
 }
 
